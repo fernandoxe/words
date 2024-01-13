@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 export interface KeyProps {
   k: string;
@@ -22,11 +23,17 @@ export const Key = ({k, status, large, children, onClick}: KeyProps) => {
   };
 
   return (
-    <button
+    <motion.button
       className={`${large ? 'w-16 h-10': 'size-10'} flex items-center justify-center uppercase border-2 border-purple-300 rounded bg-black ${bgColor[status]}`}
-      onClick={handleClick}
+      whileHover={{
+        scale: 1.1,
+      }}
+      whileTap={{
+        scale: 0.9,
+      }}
+      onTap={handleClick}
     >
       {children || k}
-    </button>
+    </motion.button>
   );
 };
