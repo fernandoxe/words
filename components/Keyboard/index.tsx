@@ -1,60 +1,35 @@
-'use client';
-
+import { Fragment, useEffect } from 'react';
+import { KeysI } from '@/interfaces';
 import { KeysRow } from './KeysRow';
 
-const FIRST_ROW = [
-  'q',
-  'w',
-  'e',
-  'r',
-  't',
-  'y',
-  'u',
-  'i',
-  'o',
-  'p',
-];
+export interface KeyboardProps {
+  rows: KeysI;
+  onKey: (key: string) => void;
+}
 
-const SECOND_ROW = [
-  'a',
-  's',
-  'd',
-  'f',
-  'g',
-  'h',
-  'j',
-  'k',
-  'l',
-];
-
-const THIRD_ROW = [
-  'z',
-  'x',
-  'c',
-  'v',
-  'b',
-  'n',
-  'm',
-];
-
-export const rows = [
-  FIRST_ROW,
-  SECOND_ROW,
-  THIRD_ROW,
-];
-
-export const Keyboard = () => {
+export const Keyboard = ({rows, onKey}: KeyboardProps) => {
   const handleKeyClick = (k: string) => {
-    console.log('key', k);
+    onKey(k);
   };
 
+  useEffect(() => {
+    console.log('onKey changed');
+    const handleKeyboard = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+      if(/^[a-z]$/.test(key) || key === 'enter' || key === 'backspace') onKey(key);
+    };
+    window.addEventListener('keyup', handleKeyboard);
+    return () => {
+      window.removeEventListener('keyup', handleKeyboard);
+    };
+  }, [onKey]);
+
   return (
-    <div className="flex flex-col items-center gap-2 select-none">
+    <div className="w-full flex flex-col items-center gap-2 select-none">
       {rows.map((row, index) =>
         <KeysRow
           key={index}
           row={row}
-          controls={index === 2}
           onClick={handleKeyClick}
         />
       )}
