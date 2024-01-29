@@ -13,7 +13,6 @@ export const Keyboard = ({rows, onKey}: KeyboardProps) => {
   };
 
   useEffect(() => {
-    console.log('onKey changed');
     const handleKeyboard = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
       if(/^[a-z]$/.test(key) || key === 'enter' || key === 'backspace') onKey(key);

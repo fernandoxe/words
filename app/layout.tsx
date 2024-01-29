@@ -62,7 +62,7 @@ export default function RootLayout({
 }) {
   const headerList = headers();
   const host = headerList.get('host') || '';
-  const gtmId = gtm[host]; console.log('gtm', gtm);
+  const gtmId = gtm[host];
 
   return (
     <html lang="en">

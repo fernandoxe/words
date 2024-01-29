@@ -7,6 +7,7 @@ import { BoardI, StatsI } from "@/interfaces";
 import { getEmojisBoard } from "@/services/board";
 import { formatDate } from "@/services/date";
 import { copy, copyStats, share, shareStats } from "@/services/gtm";
+import { captureException } from "@sentry/nextjs";
 
 export interface ShareProps {
   board?: BoardI;
@@ -53,7 +54,7 @@ export const Share = ({board, stats}: ShareProps) => {
     try {
       await navigator.clipboard.writeText(text);
     } catch (error: any) {
-      console.log('Copy error', error.message);
+      captureException(error);
     }
   };
 
@@ -73,7 +74,7 @@ export const Share = ({board, stats}: ShareProps) => {
         text,
       });
     } catch (error: any) {
-      console.log('Share error', error.message);
+      captureException(error);
     }
   };
 

@@ -11,6 +11,7 @@ import { addLetter, getClonedBoard, getEmptyBoard, removeLetter } from '@/servic
 import { getEmptyLocalStats, getKeysFromStates, getLastGame, getLocalStats, saveLastGame, saveStats } from '@/services/storage';
 import { Loader } from '../Loader';
 import { endGame, sendRowLog, showResultsModal, startGame, startLastGame } from '@/services/gtm';
+import { captureException } from '@sentry/nextjs';
 
 export const Game = () => {
   const { word,
@@ -138,7 +139,7 @@ export const Game = () => {
       setWord(newWord);
       setBoard(getEmptyBoard(newWord.word.word, ROWS));
     } catch (error) {
-      console.log(error);
+      captureException(error);
     } finally {
       setLoading(false);
     }
