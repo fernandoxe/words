@@ -40,6 +40,7 @@ export const Key = ({k, large, children, onClick}: KeyProps) => {
       }}
       onTap={handleClick}
       disabled={k.disabled}
+      aria-label={k.code}
     >
       {children || k.code}
     </motion.button>
