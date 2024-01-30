@@ -34,7 +34,7 @@ export const Game = () => {
 
   useEffect(() => {
     const lastGame = getLastGame();
-    if(lastGame?.date === word.date) {
+    if(lastGame?.date === word.date && lastGame?.word.word === word.word.word) {
       setKeys(getKeysFromStates(lastGame.keyStates));
       setBoard(lastGame.board);
       setRandom(false);
@@ -46,7 +46,7 @@ export const Game = () => {
       startLastGame(word.word.word, lastGame.winner);
       showResultsModal(lastGame.winner);
     } else {
-      startGame(random);
+      startGame(!word.date);
     }
 
     const newStats = getLocalStats();
@@ -60,6 +60,7 @@ export const Game = () => {
   const finish = useCallback((newBoard: BoardI, newKeys: KeysI, isWinner: boolean) => {
     setFinished(true);
     setShowResults(true);
+    setCanShowResults(true);
     if(!random) {
       saveLastGame(newBoard, newKeys, word, isWinner);
     }
@@ -68,7 +69,7 @@ export const Game = () => {
 
     endGame(random, word.date || '', word.word.word, isWinner, row + 1);
     showResultsModal(isWinner);
-  }, [random, row, word, stats, setShowResults]);
+  }, [random, row, word, stats, setShowResults, setCanShowResults]);
 
   const sendRow = useCallback((row: number) => {
     const newKeys = getClonedKeys(keys);
@@ -104,10 +105,9 @@ export const Game = () => {
     }
     setKeys(newKeys);
     setBoard(newBoard);
-    setCanShowResults(true);
     
     sendRowLog(row);
-  }, [board, keys, word, finish, setCanShowResults]);
+  }, [board, keys, word, finish]);
 
   const handleKey = useCallback((key: string) => {
     if(finished) return;
