@@ -1,6 +1,5 @@
 const logEvent = (event: string, params?: any) => {
   gtag('event', event, params);
-  console.log('logEvent', event, params);
 };
 
 export const startGame = (nonDaily: boolean) => {
