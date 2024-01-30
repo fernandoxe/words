@@ -53,7 +53,7 @@ export const generateMetadata = (): Metadata => {
 
 export const viewport: Viewport = {
   themeColor: '#0f172a',
-}
+};
 
 export default function RootLayout({
   children,
@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`} />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`} />
         <script dangerouslySetInnerHTML={
           {
             __html: `
