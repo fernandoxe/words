@@ -1,13 +1,13 @@
-import { IconButton } from "@/components/IconButton";
-import { config } from "@/config";
-import { useWordsContext } from "@/contexts";
-import { CopyIcon } from "@/icons/CopyIcon";
-import { ShareIcon } from "@/icons/ShareIcon";
-import { BoardI, StatsI } from "@/interfaces";
-import { getEmojisBoard } from "@/services/board";
-import { formatDate } from "@/services/date";
-import { copy, copyStats, share, shareStats } from "@/services/gtm";
-import { captureException } from "@sentry/nextjs";
+import { IconButton } from '@/components/IconButton';
+import { config } from '@/config';
+import { useWordsContext } from '@/contexts';
+import { CopyIcon } from '@/icons/CopyIcon';
+import { ShareIcon } from '@/icons/ShareIcon';
+import { BoardI, StatsI } from '@/interfaces';
+import { getEmojisBoard } from '@/services/board';
+import { formatDate } from '@/services/date';
+import { copy, copyStats, share, shareStats } from '@/services/gtm';
+import { captureException } from '@sentry/nextjs';
 
 export interface ShareProps {
   board?: BoardI;
@@ -20,8 +20,15 @@ export const Share = ({board, stats}: ShareProps) => {
   const getEmojisText = (board: BoardI) => {
     const emojisBoard = getEmojisBoard(board, theme, highContrast);
     const emojis = emojisBoard.map(row => row.join('')).join('\n');
+    
     let text = `${config[app].appTitle} `;
-    text += word.date ? `${formatDate(word.date)}` : 'non-daily word';
+    text += word.date ? `${formatDate(word.date)}` : '(non-daily word)';
+    if(!word.date) {
+      text += `\n\n🔤 ${word.word.word}\n`;
+      text += `🎶 ${word.word.line}\n`;
+      text += `🎼 ${word.word.track}\n`;
+      text += `💿 ${word.word.album}`;
+    }
     text += `\n\n${emojis}\n\n${config[app].shortUrl}`;
     return text;
   };
@@ -31,8 +38,8 @@ export const Share = ({board, stats}: ShareProps) => {
     const today = new Date().toISOString().slice(0, 10);
     text += `My ${config[app].appTitle} statistics to ${formatDate(today)}\n\n`;
     text += `Games won: ${stats.winner}\n`;
-    text += `Current streak: ${stats.currentStreak}\n`;
-    text += `Best streak: ${stats.bestStreak}\n\n`;
+    text += `Best streak: ${stats.bestStreak}\n`;
+    text += `Current streak: ${stats.currentStreak}\n\n`;
     text += `Total games: ${stats.total}\n`;
     text += `Daily word: ${stats.normal}\n`;
     text += `Non-daily word: ${stats.random}\n\n`;
