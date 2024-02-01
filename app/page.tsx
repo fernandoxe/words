@@ -3,6 +3,8 @@ import { WordsProvider } from '@/contexts';
 import { getWord } from '@/services/words-api';
 import { headers } from 'next/headers';
 
+export const runtime = 'edge';
+
 export default function Home() {
   const headerList = headers();
   const host = headerList.get('host') || '';
