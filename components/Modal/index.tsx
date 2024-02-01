@@ -20,7 +20,7 @@ export const Modal = ({children, title, closeButton, onClose}: ModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-black bg-opacity-50"
       onClick={() => handleClose(false)}
     >
       <div
