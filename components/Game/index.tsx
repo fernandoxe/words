@@ -59,8 +59,10 @@ export const Game = () => {
 
   const finish = useCallback((newBoard: BoardI, newKeys: KeysI, isWinner: boolean) => {
     setFinished(true);
-    setShowResults(true);
-    setCanShowResults(true);
+    setTimeout(() => {
+      setShowResults(true);
+      setCanShowResults(true);
+    }, 200);
     if(!random) {
       saveLastGame(newBoard, newKeys, word, isWinner);
     }
