@@ -117,7 +117,7 @@ export const Results = ({winner, word, board, row, column, onPlayAgain}: Results
             >
               <div className="flex items-center gap-1">
                 <div className="text-purple-500 underline">
-                  Try {config[app].linkText}
+                  Play {config[app].linkText}
                 </div>
                 <div className="h-4">
                   <img
