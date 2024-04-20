@@ -1,8 +1,8 @@
 import fs from 'fs';
 
-const WORD_LENGTH = 5;
+const WORD_LENGTH = 6;
 
-const RANGE = 40;
+const RANGE = 58;
 
 const commonWords = [
   "you're",
@@ -171,6 +171,7 @@ export const parseCSV = () => {
   });
 };
 
+// check if every word has the correct length, if not, print it
 const checkWordsLength = () => {
   const fileNames = getFileNames();
   fileNames.forEach(filename => {
@@ -185,6 +186,7 @@ const checkWordsLength = () => {
   });
 };
 
+// check if every word exists in the line, if not, print it
 const checkIfWordsExist = () => {
   const fileNames = getFileNames();
   fileNames.forEach(filename => {
@@ -199,6 +201,7 @@ const checkIfWordsExist = () => {
   });
 };
 
+// count the words and save it in a file
 export const countWords = () => {
   const fileNames = getFileNames();
   const words = {};
@@ -218,6 +221,7 @@ export const countWords = () => {
   fs.writeFileSync(`./data/final/${WORD_LENGTH} words/final/count-words.json`, JSON.stringify(sortedWords, null, 2), 'utf8');
 };
 
+// count the total words
 export const totalWords = () => {
   const fileNames = getFileNames();
   let total = 0;
@@ -230,6 +234,7 @@ export const totalWords = () => {
   console.log(total);
 };
 
+// merge all words from different albums in a single file
 export const mergeWords = () => {
   const fileNames = getFileNames();
   const words = [];
@@ -244,6 +249,7 @@ export const mergeWords = () => {
   fs.writeFileSync(`./data/final/${WORD_LENGTH} words/final/merged-words.json`, JSON.stringify(words, null, 2), 'utf8');
 };
 
+// count the total words in the merged file
 const countWordsMerged = () => {
   const data = fs.readFileSync(`./data/final/${WORD_LENGTH} words/final/merged-words.json`, 'utf8');
   const fileObject = JSON.parse(data);
@@ -251,6 +257,7 @@ const countWordsMerged = () => {
   console.log(totalWords);
 };
 
+// randomize the words array
 const randomizeWordsArray = () => {
   const data = fs.readFileSync(`./data/final/${WORD_LENGTH} words/final/merged-words.json`, 'utf8');
   const fileObject = JSON.parse(data);
@@ -310,9 +317,10 @@ const checkIfWordsIsSeparated = () => {
 };
 
 const run = () => {
-  parseAll(true);
+  // console.log(getFileNames());
+  // parseAll(true);
   // getWordsSingleQuote();
-  // getWordsCount();
+  // console.log(getWordsCount());
 
   // parseCSV();
   // checkWordsLength();
@@ -321,7 +329,9 @@ const run = () => {
   // totalWords();
   // mergeWords();
   // countWordsMerged();
-  // randomizeWordsArray();
-  checkIfWordsIsSeparated();
+  // randomizeWordsArray(); // first merge all word length merged files
+  // checkIfWordsIsSeparated();
 };
 run();
+
+// 483 + 367 + 171 + 113 = 1134
