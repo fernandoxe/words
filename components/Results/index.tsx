@@ -111,7 +111,7 @@ export const Results = ({winner, word, board, row, column, onPlayAgain}: Results
             </div>
           </div>
         </div>
-        <div className="mt-2">
+        {/* <div className="mt-2">
           <a
             href={config[app].linkUrl}
             >
@@ -128,7 +128,7 @@ export const Results = ({winner, word, board, row, column, onPlayAgain}: Results
                 </div>
               </div>
             </a>
-        </div>
+        </div> */}
       </div>
     </Modal>
   );

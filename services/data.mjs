@@ -259,7 +259,7 @@ const countWordsMerged = () => {
 
 // randomize the words array
 const randomizeWordsArray = () => {
-  const data = fs.readFileSync(`./data/final/${WORD_LENGTH} words/final/merged-words.json`, 'utf8');
+  const data = fs.readFileSync(`./data/final/merged-words.json`, 'utf8');
   const fileObject = JSON.parse(data);
   const randomizedWords = [];
 
@@ -297,12 +297,12 @@ const randomizeWordsArray = () => {
   });
   console.log('Total length', randomizedWords.reduce((acc, word) => acc + 1, 0));
 
-  fs.writeFileSync(`./data/final/${WORD_LENGTH} words/final/random-words.json`, JSON.stringify(randomizedWords, null, 2), 'utf8');
+  fs.writeFileSync(`./data/final/random-words.json`, JSON.stringify(randomizedWords, null, 2), 'utf8');
 };
 
 // check if every word is separated by RANGE
 const checkIfWordsIsSeparated = () => {
-  const data = fs.readFileSync(`./data/final/${WORD_LENGTH} words/final/random-words.json`, 'utf8');
+  const data = fs.readFileSync(`./data/final/random-words.json`, 'utf8');
   const fileObject = JSON.parse(data);
   console.log(fileObject.length);
   
