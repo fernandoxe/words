@@ -20,7 +20,7 @@ export const Information = ({ onClose }: InformationProps) => {
         </p>
 
         <p className="text-base">
-          Swiftdle.com is closing down. But don't worry, you can still play Swiftdle (plus TLOAS) at <a href="https://swifties.games" className="font-semibold text-purple-500 dark:text-purple-400 hover:underline hover:text-purple-600 dark:hover:text-purple-300 inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+          Swiftdle.com is closing down. But don&apos;t worry, you can still play Swiftdle (now with TLOAS) at <a href="https://swifties.games" className="font-semibold text-purple-500 dark:text-purple-400 hover:underline hover:text-purple-600 dark:hover:text-purple-300 inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer">
             swifties.games
             <span className="w-4 h-4"><LinkIcon /></span>
           </a> with more swiftie-themed games.
