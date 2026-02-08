@@ -8,7 +8,7 @@ import { useWordsContext } from '@/contexts';
 import { Help } from '../Help';
 import { Settings } from '../Settings';
 import { config } from '@/config';
-import { clickHelp, clickResults, clickSettings, clickStats } from '@/services/gtm';
+import { clickHelp, clickResults, clickSettings, clickStats, openInformation } from '@/services/gtm';
 
 export interface HeaderProps {
   onOpenInformation: () => void;
@@ -46,6 +46,11 @@ export const Header = ({ onOpenInformation }: HeaderProps) => {
     clickSettings();
   };
 
+  const handleInfoClick = () => {
+    onOpenInformation();
+    openInformation();
+  };
+
   return (
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex flex-col items-center select-none">
@@ -59,7 +64,7 @@ export const Header = ({ onOpenInformation }: HeaderProps) => {
       <div className="flex gap-2">
         <div className="size-7">
           <IconButton
-            onClick={onOpenInformation}
+            onClick={handleInfoClick}
             className="text-purple-500 dark:text-purple-500"
           >
             <InfoIcon />

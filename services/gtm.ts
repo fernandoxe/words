@@ -147,3 +147,15 @@ export const switchHighContrast = (highContrast: boolean, theme: string) => {
     }
   );
 };
+
+export const openInformation = () => {
+  logEvent(
+    'open_information'
+  );
+};
+
+export const closeInformation = () => {
+  logEvent(
+    'close_information'
+  );
+};

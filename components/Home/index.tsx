@@ -5,14 +5,19 @@ import { Game } from '../Game';
 import { Information } from '../Information';
 import { useEffect, useState } from 'react';
 import { useWordsContext } from '@/contexts';
-import { initTheme } from '@/services/gtm';
+import { initTheme, closeInformation } from '@/services/gtm';
 
 export const Home = () => {
   const { setTheme, setHighContrast } = useWordsContext();
   const [mounted, setMounted] = useState(false);
-  const [showInformation, setShowInformation] = useState(true);
+  const [showInformation, setShowInformation] = useState(false);
 
   useEffect(() => {
+    const infoSeen = localStorage.getItem('swiftdle-info');
+    if (!infoSeen) {
+      setShowInformation(true);
+    }
+
     const theme = localStorage.getItem('theme');
     let newTheme;
     if (theme === 'dark' || theme === 'light') {
@@ -41,6 +46,8 @@ export const Home = () => {
   }, [setHighContrast, setTheme]);
 
   const handleCloseInformation = () => {
+    closeInformation();
+    localStorage.setItem('swiftdle-info', 'true');
     setShowInformation(false);
   };
 
