@@ -2,6 +2,7 @@
 
 import { Header } from '../Header';
 import { Game } from '../Game';
+import { Information } from '../Information';
 import { useEffect, useState } from 'react';
 import { useWordsContext } from '@/contexts';
 import { initTheme } from '@/services/gtm';
@@ -9,13 +10,14 @@ import { initTheme } from '@/services/gtm';
 export const Home = () => {
   const { setTheme, setHighContrast } = useWordsContext();
   const [mounted, setMounted] = useState(false);
+  const [showInformation, setShowInformation] = useState(true);
 
   useEffect(() => {
     const theme = localStorage.getItem('theme');
     let newTheme;
-    if(theme === 'dark' || theme === 'light') {
+    if (theme === 'dark' || theme === 'light') {
       newTheme = theme;
-    } else if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       newTheme = 'dark';
     } else {
       newTheme = 'light';
@@ -25,7 +27,7 @@ export const Home = () => {
 
     const highContrast = localStorage.getItem('highContrast');
     let newHighContrast;
-    if(highContrast === '1' || highContrast === '0') {
+    if (highContrast === '1' || highContrast === '0') {
       newHighContrast = highContrast;
     } else {
       newHighContrast = '0';
@@ -38,16 +40,27 @@ export const Home = () => {
     initTheme(newTheme, newHighContrast === '1' ? true : false);
   }, [setHighContrast, setTheme]);
 
+  const handleCloseInformation = () => {
+    setShowInformation(false);
+  };
+
+  const handleOpenInformation = () => {
+    setShowInformation(true);
+  };
+
   return (
     <>
-      { mounted &&
+      {mounted &&
         <main className="max-w-xl mx-auto my-0">
           <div className="flex flex-col items-center gap-8">
-            <Header />
+            <Header onOpenInformation={handleOpenInformation} />
             <Game />
           </div>
         </main>
       }
+      {showInformation && (
+        <Information onClose={handleCloseInformation} />
+      )}
     </>
   );
 };

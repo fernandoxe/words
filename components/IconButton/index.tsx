@@ -4,12 +4,13 @@ import { motion } from 'framer-motion';
 export interface IconButtonProps {
   children: ReactNode;
   onClick: () => void;
+  className?: string;
 };
 
-export const IconButton = ({children, onClick}: IconButtonProps) => {
+export const IconButton = ({ children, onClick, className = '' }: IconButtonProps) => {
   return (
     <motion.div
-      className="cursor-pointer select-none"
+      className={`cursor-pointer select-none ${className}`}
       whileHover={{
         scale: 1.1,
       }}

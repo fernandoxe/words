@@ -1,4 +1,5 @@
 import { HelpIcon } from '@/icons/HelpIcon';
+import { InfoIcon } from '@/icons/InfoIcon';
 import { ResultsIcon } from '@/icons/ResultsIcon';
 import { SettingsIcon } from '@/icons/SettingsIcon';
 import { StatsIcon } from '@/icons/StatsIcon';
@@ -9,7 +10,11 @@ import { Settings } from '../Settings';
 import { config } from '@/config';
 import { clickHelp, clickResults, clickSettings, clickStats } from '@/services/gtm';
 
-export const Header = () => {
+export interface HeaderProps {
+  onOpenInformation: () => void;
+}
+
+export const Header = ({ onOpenInformation }: HeaderProps) => {
   const {
     app,
     canShowResults,
@@ -52,7 +57,15 @@ export const Header = () => {
         </div>
       </div>
       <div className="flex gap-2">
-        { canShowResults &&
+        <div className="size-7">
+          <IconButton
+            onClick={onOpenInformation}
+            className="text-purple-500 dark:text-purple-500"
+          >
+            <InfoIcon />
+          </IconButton>
+        </div>
+        {canShowResults &&
           <div className="size-7">
             <IconButton
               onClick={handleResultsClick}
@@ -77,7 +90,7 @@ export const Header = () => {
         </div>
         <div className="size-7">
           <IconButton
-              onClick={handleSettingsClick}
+            onClick={handleSettingsClick}
           >
             <SettingsIcon />
           </IconButton>
