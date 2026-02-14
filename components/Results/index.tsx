@@ -13,6 +13,7 @@ import { Share } from '../Share';
 import { removeEmptyRows } from '@/services/board';
 import { config } from '@/config';
 import { playAgain } from '@/services/gtm';
+import { LinkIcon } from '@/icons/LinkIcon';
 
 export interface ResultsProps {
   winner: boolean;
@@ -23,7 +24,7 @@ export interface ResultsProps {
   onPlayAgain: () => void;
 }
 
-export const Results = ({winner, word, board, row, column, onPlayAgain}: ResultsProps) => {
+export const Results = ({ winner, word, board, row, column, onPlayAgain }: ResultsProps) => {
   const { app, setShowResults } = useWordsContext();
 
   const highlightWord = (word: string, text: string) => {
@@ -60,7 +61,7 @@ export const Results = ({winner, word, board, row, column, onPlayAgain}: Results
         </div>
         <div
           className="italic text-center leading-tight my-1"
-          dangerouslySetInnerHTML={{__html: highlightWord(word.word.word, word.word.line)}}
+          dangerouslySetInnerHTML={{ __html: highlightWord(word.word.word, word.word.line) }}
         >
         </div>
         <div className="flex items-center gap-2">
@@ -96,7 +97,7 @@ export const Results = ({winner, word, board, row, column, onPlayAgain}: Results
           <div className="size-8">
             <IconButton
               onClick={handlePlayAgain}
-              >
+            >
               <div className="bg-purple-500 text-neutral-200 p-1.5 rounded-full">
                 <RepeatIcon />
               </div>
@@ -110,6 +111,12 @@ export const Results = ({winner, word, board, row, column, onPlayAgain}: Results
               (non-daily word)
             </div>
           </div>
+        </div>
+        <div className="mt-2">
+          Play more at <a href="https://swifties.games" className="font-semibold text-purple-500 dark:text-purple-400 hover:underline hover:text-purple-600 dark:hover:text-purple-300 inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+            swifties.games
+            <span className="w-4 h-4"><LinkIcon /></span>
+          </a>
         </div>
         {/* <div className="mt-2">
           <a

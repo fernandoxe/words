@@ -1,6 +1,6 @@
 import { ROWS } from '@/constants';
 import { Board } from '../Board';
-import { Keyboard } from'../Keyboard';
+import { Keyboard } from '../Keyboard';
 import { BoardI, KeysI, StatsI } from '@/interfaces';
 import { useCallback, useEffect, useState } from 'react';
 import { useWordsContext } from '@/contexts';
@@ -34,7 +34,7 @@ export const Game = () => {
 
   useEffect(() => {
     const lastGame = getLastGame();
-    if(lastGame?.date === word.date && lastGame?.word.word === word.word.word) {
+    if (lastGame?.date === word.date && lastGame?.word.word === word.word.word) {
       setKeys(getKeysFromStates(lastGame.keyStates));
       setBoard(lastGame.board);
       setRandom(false);
@@ -63,7 +63,7 @@ export const Game = () => {
       setShowResults(true);
       setCanShowResults(true);
     }, 200);
-    if(!random) {
+    if (!random) {
       saveLastGame(newBoard, newKeys, word, isWinner);
     }
     const newStats = saveStats(stats, random, isWinner, row);
@@ -80,10 +80,10 @@ export const Game = () => {
     const lowerWord = word.word.word.toLowerCase();
     newRow.forEach((square, index) => {
       const keyRow = getKeyRow(newKeys, square.char);
-      if(square.char === lowerWord[index]) {
+      if (square.char === lowerWord[index]) {
         keyRow[square.char].status = '2';
         square.guessed = '2';
-      } else if(lowerWord.includes(square.char)) {
+      } else if (lowerWord.includes(square.char)) {
         keyRow[square.char].status = '1';
         square.guessed = '1';
       } else {
@@ -92,12 +92,12 @@ export const Game = () => {
       }
     });
     const isWinner = newRow.every(square => square.guessed === '2');
-    if(isWinner) {
+    if (isWinner) {
       setWinner(true);
       finish(newBoard, newKeys, isWinner);
     } else {
       const nextRow = row + 1;
-      if(nextRow === ROWS) {
+      if (nextRow === ROWS) {
         setWinner(false);
         finish(newBoard, newKeys, isWinner);
       } else {
@@ -107,13 +107,13 @@ export const Game = () => {
     }
     setKeys(newKeys);
     setBoard(newBoard);
-    
+
     sendRowLog(row);
   }, [board, keys, word, finish]);
 
   const handleKey = useCallback((key: string) => {
-    if(finished) return;
-    if(/^[a-z]$/.test(key) && row < ROWS && column < word.word.word.length) {
+    if (finished) return;
+    if (/^[a-z]$/.test(key) && row < ROWS && column < word.word.word.length) {
       const newColumn = column + 1;
       setBoard(addLetter(board, key, row, column));
       setColumn(newColumn);

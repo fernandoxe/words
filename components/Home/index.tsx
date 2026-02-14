@@ -6,6 +6,7 @@ import { Information } from '../Information';
 import { useEffect, useState } from 'react';
 import { useWordsContext } from '@/contexts';
 import { initTheme, closeInformation } from '@/services/gtm';
+import { LinkIcon } from '@/icons/LinkIcon';
 
 export const Home = () => {
   const { setTheme, setHighContrast } = useWordsContext();
@@ -59,15 +60,25 @@ export const Home = () => {
     <>
       {mounted &&
         <main className="max-w-xl mx-auto my-0">
-          <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-col items-center gap-4">
             <Header onOpenInformation={handleOpenInformation} />
+            <div className="mb-4">
+              Play more at <a href="https://swifties.games" className="font-semibold text-purple-500 dark:text-purple-400 hover:underline hover:text-purple-600 dark:hover:text-purple-300 inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+                swifties.games
+                <span className="w-4 h-4"><LinkIcon /></span>
+              </a>
+            </div>
+          </div >
+          <div className="flex flex-col items-center gap-8">
             <Game />
           </div>
         </main>
       }
-      {showInformation && (
-        <Information onClose={handleCloseInformation} />
-      )}
+      {
+        showInformation && (
+          <Information onClose={handleCloseInformation} />
+        )
+      }
     </>
   );
 };
